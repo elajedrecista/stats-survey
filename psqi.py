@@ -49,8 +49,12 @@ def calc_durat(q4):
         return 1
     elif 5 <= tmp < 6:
         return 2
-    else:
+    elif tmp < 5:
         return 3
+    else:
+        print(f"ERROR: calc_durat param q4 = {q4}")
+        print(f"ERROR: calc_durat var tmp = {tmp}")
+        return 2**16
 
 def calc_distb(distb_answers, q5jcom, q5j):
     # not answered
@@ -71,8 +75,11 @@ def calc_distb(distb_answers, q5jcom, q5j):
         return 1
     elif 9 < total <= 18:
         return 2
-    else:
+    elif total > 18:
         return 3
+    else:
+        print(f"ERROR: calc_distb var total = {total}")
+        return 2**16
 
 def calc_laten(q2, q5a):
     tmp_q2 = int(q2)
@@ -84,8 +91,12 @@ def calc_laten(q2, q5a):
         q2new = 1
     elif 30 < tmp_q2 <= 60:
         q2new = 2
-    else:
+    elif tmp_q2 > 60:
         q2new = 3
+    else:
+        print(f"ERROR: calc_laten param q2 = {q2}")
+        print(f"ERROR: calc_laten var tmp_q2 = {tmp_q2}")
+        return 2**16
 
     tmp = q2new + tmp_q5a
     if tmp == 0:
@@ -94,8 +105,12 @@ def calc_laten(q2, q5a):
         return 1
     elif 3 <= tmp <= 4:
         return 2
-    else:   
+    elif 5 <= tmp <= 6:
         return 3
+    else:
+        print(f"ERROR: calc_laten var tmp = {tmp}")
+        print(f"ERROR: calc_laten var tmp = q2new + tmp_q5a = {q2new} + {tmp_q5a}")
+        return 2**16
 
 def calc_daydys(q8, q9):
     tmp = psqi[q8] + psqi[q9]
@@ -105,8 +120,13 @@ def calc_daydys(q8, q9):
         return 1
     elif 3 <= tmp <= 4:
         return 2
-    else:
+    elif 5 <= tmp <= 6:
         return 3
+    else:
+        print(f"ERROR: calc_daydys var tmp = {tmp}")
+        print(f"ERROR: calc_daydys param q8 = {q8}")
+        print(f"ERROR: calc_daydys param q9 = {q9}")
+        return 2**16
 
 # Bless this person's heart
 # https://stackoverflow.com/a/3096984/13471272
@@ -126,8 +146,11 @@ def calc_hse(q1, q3, q4):
     diff_hour = abs(diff_sec) / 3600
     if diff_hour > 24:
         newtib = diff_hour - 24
-    else:
+    elif diff_hour <= 24:
         newtib = diff_hour
+    else:
+        print(f"ERROR: calc_hse var diff_hour = {diff_hour}")
+        return 2**16
 
     tmphse = (int(q4) / newtib) * 100
     if tmphse >= 85:
@@ -136,8 +159,11 @@ def calc_hse(q1, q3, q4):
         return 1
     elif 65 <= tmphse < 75:
         return 2
-    else:
+    elif tmphse < 65:
         return 3
+    else:
+        print(f"ERROR: calc_hse var tmphse = {tmphse}")
+        return 2**16
 
 def calc_slpqual_meds(q):
     return psqi[q]
@@ -172,4 +198,14 @@ def calc_psqi(response):
     hse = calc_hse(q1, q3, q4)
     slpqual = calc_slpqual_meds(q6)
     meds = calc_slpqual_meds(q7)
-    return durat + distb + laten + daydys + hse + slpqual + meds
+    psqi_score = durat + distb + laten + daydys + hse + slpqual + meds
+
+    print(f"durat   = {durat:d}")
+    print(f"distb   = {distb:d}")
+    print(f"laten   = {laten:d}")
+    print(f"daydys  = {daydys:d}")
+    print(f"hse     = {hse:d}")
+    print(f"slpqual = {slpqual:d}")
+    print(f"meds    = {meds:d}")
+    print(f"psqi    = {psqi_score:d}")
+    return psqi_score
