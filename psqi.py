@@ -42,7 +42,7 @@ psqi = {
 }
 
 def calc_durat(q4):
-    tmp = int(q4)
+    tmp = float(q4)
     if tmp >= 7:
         return 0
     elif 6 <= tmp < 7:
@@ -82,7 +82,7 @@ def calc_distb(distb_answers, q5jcom, q5j):
         return 2**16
 
 def calc_laten(q2, q5a):
-    tmp_q2 = int(q2)
+    tmp_q2 = float(q2)
     tmp_q5a = int(psqi[q5a])
 
     if 0 <= tmp_q2 <= 15:
@@ -132,7 +132,10 @@ def calc_daydys(q8, q9):
 # https://stackoverflow.com/a/3096984/13471272
 def to_military(time):
     fmt = "%I:%M %p"
-    time = datetime.strptime(time, fmt)
+    try:
+        time = datetime.strptime(time, fmt)
+    except ValueError:
+        time = datetime.strptime(time, "%I:%M:%S %p")
     return time
 
 def calc_hse(q1, q3, q4):
@@ -152,7 +155,7 @@ def calc_hse(q1, q3, q4):
         print(f"ERROR: calc_hse var diff_hour = {diff_hour}")
         return 2**16
 
-    tmphse = (int(q4) / newtib) * 100
+    tmphse = (float(q4) / newtib) * 100
     if tmphse >= 85:
         return 0
     elif 75 <= tmphse < 85:
