@@ -168,7 +168,7 @@ def calc_hse(q1, q3, q4):
 def calc_slpqual_meds(q):
     return psqi[q]
 
-def calc_psqi(response):
+def calc_psqi(response, printing):
     # read in PSQI responses as their original strings
     q1     = response[psqi1].strip()
     q2     = response[psqi2].strip()
@@ -200,12 +200,13 @@ def calc_psqi(response):
     meds = calc_slpqual_meds(q7)
     psqi_score = durat + distb + laten + daydys + hse + slpqual + meds
 
-    print(f"durat   = {durat:d}")
-    print(f"distb   = {distb:d}")
-    print(f"laten   = {laten:d}")
-    print(f"daydys  = {daydys:d}")
-    print(f"hse     = {hse:d}")
-    print(f"slpqual = {slpqual:d}")
-    print(f"meds    = {meds:d}")
-    print(f"psqi    = {psqi_score:d}")
+    if printing:
+        print(f"durat   = {durat:d}")
+        print(f"distb   = {distb:d}")
+        print(f"laten   = {laten:d}")
+        print(f"daydys  = {daydys:d}")
+        print(f"hse     = {hse:d}")
+        print(f"slpqual = {slpqual:d}")
+        print(f"meds    = {meds:d}")
+        print(f"psqi    = {psqi_score:d}")
     return psqi_score
