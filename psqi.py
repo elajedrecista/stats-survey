@@ -1,24 +1,24 @@
 from datetime import datetime
 
-psqi1 = 12
-psqi2 = 13
-psqi3 = 14
-psqi4 = 15
-psqi5a = 16
-psqi5b = 17
-psqi5c = 18
-psqi5d = 19
-psqi5e = 20
-psqi5f = 21
-psqi5g = 22
-psqi5h = 23
-psqi5i = 24
+psqi1     = 12
+psqi2     = 13
+psqi3     = 14
+psqi4     = 15
+psqi5a    = 16
+psqi5b    = 17
+psqi5c    = 18
+psqi5d    = 19
+psqi5e    = 20
+psqi5f    = 21
+psqi5g    = 22
+psqi5h    = 23
+psqi5i    = 24
 psqi5jcom = 25
-psqi5j = 26
-psqi6 = 27
-psqi7 = 28
-psqi8 = 29
-psqi9 = 30
+psqi5j    = 26
+psqi6     = 27
+psqi7     = 28
+psqi8     = 29
+psqi9     = 30
 
 # PSQI response scores
 psqi = {
@@ -208,5 +208,5 @@ def calc_psqi(response, printing):
         print(f"hse     = {hse:d}")
         print(f"slpqual = {slpqual:d}")
         print(f"meds    = {meds:d}")
-        print(f"psqi    = {psqi_score:d}")
+        print(f"PSQI    = {psqi_score:d}")
     return psqi_score

@@ -12,16 +12,15 @@ screen_time = 32
 extracurr = 33
 
 # validate cmdline arguments
-# i know it's not robust, but i probably shouldn't overengineer this bit
-# of code for an AP stats class which only I'll ever run
+# i know it's not robust, but i probably shouldn't overengineer
+# some code for an AP stats class which only I will ever run
 if len(sys.argv) < 3:
     print("usage: $ python3 score.py input.csv output.csv [--no-print]")
     sys.exit()
 
+printing = True
 if len(sys.argv) == 4 and sys.argv[3] == '--no-print':
     printing = False
-else:
-    printing = True
 
 # main routine
 with open(sys.argv[1], "r") as fin:
@@ -31,7 +30,7 @@ with open(sys.argv[1], "r") as fin:
     with open(sys.argv[2], "w") as fout:
         writer = csv.writer(fout)
 
-        # write field names
+        # write output field names
         fout.write("Timestamp,Grade,PSS,PSQI,Exercise,Screen Time,Extracurriculars\n")
 
         for response in reader:
@@ -39,6 +38,7 @@ with open(sys.argv[1], "r") as fin:
             psqi_score = psqi.calc_psqi(response, printing)
 
             if printing:
+                print()
                 print(response[timestamp])
                 print("PSS SCORE:  " + str(pss_score))
                 print("PSQI SCORE: " + str(psqi_score))
