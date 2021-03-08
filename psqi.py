@@ -86,19 +86,19 @@ def calc_laten(q2, q5a):
     tmp_q5a = int(psqi[q5a])
 
     if 0 <= tmp_q2 <= 15:
-        q2new = 0
+        q2_new = 0
     elif 15 < tmp_q2 <= 30:
-        q2new = 1
+        q2_new = 1
     elif 30 < tmp_q2 <= 60:
-        q2new = 2
+        q2_new = 2
     elif tmp_q2 > 60:
-        q2new = 3
+        q2_new = 3
     else:
         print(f"ERROR: calc_laten param q2 = {q2}")
         print(f"ERROR: calc_laten var tmp_q2 = {tmp_q2}")
         return 2**16
 
-    tmp = q2new + tmp_q5a
+    tmp = q2_new + tmp_q5a
     if tmp == 0:
         return 0
     elif 1 <= tmp <= 2:
@@ -109,7 +109,7 @@ def calc_laten(q2, q5a):
         return 3
     else:
         print(f"ERROR: calc_laten var tmp = {tmp}")
-        print(f"ERROR: calc_laten var tmp = q2new + tmp_q5a = {q2new} + {tmp_q5a}")
+        print(f"ERROR: calc_laten var tmp = q2_new + tmp_q5a = {q2_new} + {tmp_q5a}")
         return 2**16
 
 def calc_daydys(q8, q9):
@@ -133,8 +133,10 @@ def calc_daydys(q8, q9):
 def to_military(time):
     fmt = "%I:%M %p"
     try:
+        # google sheets autoformat
         time = datetime.strptime(time, fmt)
     except ValueError:
+        # librecalc autoformat
         time = datetime.strptime(time, "%I:%M:%S %p")
     return time
 
@@ -168,6 +170,7 @@ def calc_hse(q1, q3, q4):
         print(f"ERROR: calc_hse var tmphse = {tmphse}")
         return 2**16
 
+# slpqual and meds are calculated in the same way
 def calc_slpqual_meds(q):
     return psqi[q]
 
