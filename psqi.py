@@ -1,6 +1,6 @@
 from datetime import datetime
 
-# field index scores
+# field indexes
 psqi1     = 12
 psqi2     = 13
 psqi3     = 14

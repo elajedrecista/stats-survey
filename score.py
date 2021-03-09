@@ -22,6 +22,9 @@ printing = True
 if len(sys.argv) == 4 and sys.argv[3] == '--no-print':
     printing = False
 
+pss_scores = []
+psqi_scores = []
+
 # main routine
 with open(sys.argv[1], "r") as fin:
     reader = csv.reader(fin)
@@ -37,11 +40,13 @@ with open(sys.argv[1], "r") as fin:
             pss_score = pss.calc_pss(response)
             psqi_score = psqi.calc_psqi(response, printing)
 
+            pss_scores.append(pss_score)
+            psqi_scores.append(psqi_score)
+
             if printing:
-                print()
-                print(response[timestamp])
-                print("PSS SCORE:  " + str(pss_score))
-                print("PSQI SCORE: " + str(psqi_score))
+                print(response[timestamp], end='')
+                print(f"  PSS {pss_score:02d}", end='')
+                print(f"  PSQI {psqi_score:02d}")
                 print("************************************************************")
 
             row = [
@@ -50,3 +55,15 @@ with open(sys.argv[1], "r") as fin:
                 response[screen_time], response[extracurr]
                 ]
             writer.writerow(row)
+
+def mean(ls):
+    total = 0
+    for n in ls:
+        total += n
+    return total / len(ls)
+
+print(f"\n\nSCORING COMPLETE.")
+print(f"{len(pss_scores):d} SUBJECTS ANALYZED.\n")
+
+print(f"MEAN PSQI  {mean(psqi_scores):.02f}")
+print(f"MEAN PSS   {mean(pss_scores):.02f}")
