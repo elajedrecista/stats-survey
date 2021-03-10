@@ -26,16 +26,17 @@ pss_scores = []
 psqi_scores = []
 
 # main routine
-with open(sys.argv[1], "r") as fin:
+with open(sys.argv[1], "r", encoding='utf8') as fin:
     reader = csv.reader(fin)
     next(reader)
 
-    with open(sys.argv[2], "w") as fout:
+    with open(sys.argv[2], "w", encoding='utf8') as fout:
         writer = csv.writer(fout)
 
         # write output field names
         fout.write("Timestamp,Grade,PSS,PSQI,Exercise,Screen Time,Extracurriculars\n")
 
+        print("************************************************************")
         for response in reader:
             pss_score = pss.calc_pss(response)
             psqi_score = psqi.calc_psqi(response, printing)
@@ -43,11 +44,11 @@ with open(sys.argv[1], "r") as fin:
             pss_scores.append(pss_score)
             psqi_scores.append(psqi_score)
 
-            if printing:
-                print(response[timestamp], end='')
-                print(f"  PSS {pss_score:02d}", end='')
-                print(f"  PSQI {psqi_score:02d}")
-                print("************************************************************")
+            # if printing:
+            print(response[timestamp], end='')
+            print(f"  PSS {pss_score:02d}", end='')
+            print(f"  PSQI {psqi_score:02d}")
+            print("************************************************************")
 
             row = [
                 response[timestamp], response[grade],
