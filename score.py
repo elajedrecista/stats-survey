@@ -1,4 +1,5 @@
 import csv
+import math
 import sys
 
 import pss
@@ -63,8 +64,21 @@ def mean(ls):
         total += n
     return total / len(ls)
 
+def std_dev(ls, mean):
+    total = 0
+    for n in ls:
+        total += ((n - mean) ** 2)
+    var = total / (len(ls) - 1)
+    return math.sqrt(var)
+
+
 print(f"\n\nSCORING COMPLETE.")
 print(f"{len(pss_scores):d} SUBJECTS ANALYZED.\n")
 
-print(f"MEAN PSQI  {mean(psqi_scores):.02f}")
-print(f"MEAN PSS   {mean(pss_scores):.02f}")
+mean_psqi = mean(psqi_scores)
+mean_pss = mean(pss_scores)
+
+print(f"MEAN    PSQI  {mean_psqi:.02f}")
+print(f"MEAN    PSS   {mean_pss:.02f}")
+print(f"STD_DEV PSQI  {std_dev(psqi_scores, mean_psqi):.02f}")
+print(f"STD_DEV PSS   {std_dev(pss_scores, mean_pss):.02f}")
