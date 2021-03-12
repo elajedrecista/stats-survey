@@ -36,7 +36,7 @@ with open(sys.argv[1], "r", encoding='utf8') as fin:
         # write output field names
         fout.write("Timestamp,Grade,PSS,PSQI,Exercise,Screen Time,Extracurriculars\n")
 
-        print("************************************************************")
+        print("**************************************")
         for response in reader:
             pss_score = pss.calc_pss(response)
             psqi_score = psqi.calc_psqi(response, printing)
@@ -45,10 +45,10 @@ with open(sys.argv[1], "r", encoding='utf8') as fin:
             psqi_scores.append(psqi_score)
 
             # if printing:
-            print(response[timestamp], end='')
+            print('| ' + response[timestamp], end='')
             print(f"  PSS {pss_score:02d}", end='')
-            print(f"  PSQI {psqi_score:02d}")
-            print("************************************************************")
+            print(f"  PSQI {psqi_score:02d} |")
+            print("**************************************")
 
             row = [
                 response[timestamp], response[grade],
